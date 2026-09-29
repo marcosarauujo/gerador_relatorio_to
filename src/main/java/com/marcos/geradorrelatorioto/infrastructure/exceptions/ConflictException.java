@@ -1,12 +1,12 @@
-package com.marcos.geradorrelatorioto.infrastructure.exception;
+package com.marcos.geradorrelatorioto.infrastructure.exceptions;
 
-public class ConflictExceptions extends RuntimeException {
-    public ConflictExceptions(String mensagem) {
+public class ConflictException extends RuntimeException {
+    public ConflictException(String mensagem) {
 
         super(mensagem);
     }
 
-    public ConflictExceptions(String mensagem, Throwable throwable) {
+    public ConflictException(String mensagem, Throwable throwable) {
         super(mensagem, throwable);
     }
 }

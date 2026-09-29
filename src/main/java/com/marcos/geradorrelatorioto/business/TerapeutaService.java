@@ -5,7 +5,7 @@ import com.marcos.geradorrelatorioto.business.dto.out.TerapeutaResponseDTO;
 import com.marcos.geradorrelatorioto.business.mapper.TerapeutaMapper;
 import com.marcos.geradorrelatorioto.infrastructure.Repository.TerapeutaRepository;
 import com.marcos.geradorrelatorioto.infrastructure.entity.TerapeutaEntity;
-import com.marcos.geradorrelatorioto.infrastructure.exception.ConflictExceptions;
+import com.marcos.geradorrelatorioto.infrastructure.exceptions.ConflictException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -27,8 +27,11 @@ public class TerapeutaService {
     }
 
     public TerapeutaEntity buscarTerapeutaEmail(String email) {
-        return terapeutaRepository.findByEmail(email).orElseThrow(() ->
-                new ConflictExceptions("Terapeuta não encontrada " + email));
-
+        try {
+            return terapeutaRepository.findByEmail(email).orElseThrow(() ->
+                    new ConflictException("Terapeuta não encontrada " + email));
+        } catch (ConflictException e) {
+            throw new ConflictException("Terapeuta não encontrada " + email, e.getCause());
+        }
     }
 }
