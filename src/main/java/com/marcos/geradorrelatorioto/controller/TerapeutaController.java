@@ -57,4 +57,15 @@ public class TerapeutaController {
         TerapeutaEntity terapeutaEntity = terapeutaService.buscarTerapeutaEmail(email);
         return ResponseEntity.ok(terapeutaMapper.paraTerapeutaDTO(terapeutaEntity));
     }
+
+    @GetMapping("/{id}")
+    @Operation(summary = "Buscar terapeuta por ID",
+            description = "Retorna os dados de um terapeuta específico pelo seu ID")
+    @ApiResponse(responseCode = "200", description = "Terapeuta encontrado com sucesso")
+    public ResponseEntity<TerapeutaResponseDTO> buscarTerapeutaPorId(
+            @PathVariable Long id,
+            @RequestHeader(name = "Authorization", required = false) String token) {
+
+        return ResponseEntity.ok(terapeutaService.buscarTerapeutaPorId(id));
+    }
 }

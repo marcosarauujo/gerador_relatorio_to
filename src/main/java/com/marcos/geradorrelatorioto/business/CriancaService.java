@@ -12,7 +12,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -33,7 +32,7 @@ public class CriancaService {
         );
     }
 
-    public List<CriancaResponseDTO> listarMinhasCriancas(String token){
+    public List<CriancaResponseDTO> listarMinhasCriancas(String token) {
         String email = jwtUtil.extrairEmailToken(token.substring(7));
         TerapeutaEntity terapeutaEntity = terapeutaService.buscarTerapeutaEmail(email);
 
@@ -43,8 +42,15 @@ public class CriancaService {
                 .toList();
     }
 
-    public CriancaEntity buscarCriancaPorId(Long criancaId) {
+    public CriancaResponseDTO buscarCriancaPorId(Long criancaId) {
+        CriancaEntity crianca = criancaRepository.findById(criancaId)
+                .orElseThrow(() -> new ResourceNotFoundException("Criança não encontrada com id: " + criancaId));
+        return criancaMapper.paraCriancaDTO(crianca);
+    }
+    public CriancaEntity buscarCriancaEntityPorId(Long criancaId) {
         return criancaRepository.findById(criancaId)
                 .orElseThrow(() -> new ResourceNotFoundException("Criança não encontrada com id: " + criancaId));
     }
+
+
 }
