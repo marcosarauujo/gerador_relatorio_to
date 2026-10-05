@@ -1,5 +1,7 @@
 package com.marcos.geradorrelatorioto.infrastructure.security;
 
+import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
+import io.swagger.v3.oas.annotations.security.SecurityScheme;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,6 +18,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+@SecurityScheme(
+        name = SecurityConfig.SECURITY_SCHEME,
+        type = SecuritySchemeType.HTTP,
+        bearerFormat = "JWT",
+        scheme = "bearer"
+)
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
@@ -43,13 +51,14 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(HttpMethod.POST, "/terapeuta/criar").permitAll()
                         .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
+                        // Libera o Swagger
+                        .requestMatchers("/swagger-ui/**", "/swagger-ui.html", "/v3/api-docs/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
                 .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
-
         return http.build();
     }
 
@@ -61,7 +70,8 @@ public class SecurityConfig {
 
     // Configura o AuthenticationManager usando AuthenticationConfiguration
     @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
+    public AuthenticationManager authenticationManager(
+            AuthenticationConfiguration authenticationConfiguration) throws Exception {
         // Obtém e retorna o AuthenticationManager da configuração de autenticação
         return authenticationConfiguration.getAuthenticationManager();
     }
