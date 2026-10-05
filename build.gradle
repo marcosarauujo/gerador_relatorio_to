@@ -39,8 +39,6 @@ dependencies {
 	// Validação
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 
-	// Inteligência Artificial
-	implementation 'org.springframework.ai:spring-ai-starter-model-openai'
 
 	// JWT
 	implementation 'io.jsonwebtoken:jjwt-api:0.12.6'

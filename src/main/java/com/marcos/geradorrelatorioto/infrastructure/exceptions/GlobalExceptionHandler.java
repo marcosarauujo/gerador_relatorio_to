@@ -20,8 +20,5 @@ public class GlobalExceptionHandler {
     public ResponseEntity<String> handleAccessDeniedException(AccessDeniedException ex) {
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.FORBIDDEN);
     }
-    @ExceptionHandler(ArquivoConhecimentoException.class)
-    public ResponseEntity<String> handleArquivoConhecimentoException(ArquivoConhecimentoException ex) {
-        return new ResponseEntity<>(ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
-    }
+
 }

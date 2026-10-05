@@ -52,11 +52,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/terapeuta/criar").permitAll()
                         .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
                         // Libera o Swagger
-                        .requestMatchers(
-                                "/swagger-ui/**",
-                                "/swagger-ui.html",
-                                "/v3/api-docs/**"
-                        ).permitAll()
+                        .requestMatchers("/swagger-ui/**", "/swagger-ui.html", "/v3/api-docs/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session
