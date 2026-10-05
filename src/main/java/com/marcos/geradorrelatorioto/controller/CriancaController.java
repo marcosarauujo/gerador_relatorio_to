@@ -48,4 +48,14 @@ public class CriancaController {
             @RequestHeader(name = "Authorization", required = false) String token) {
         return ResponseEntity.ok(criancaService.listarMinhasCriancas(token));
     }
+
+    @GetMapping("/{id}")
+    @Operation(summary = "Buscar criança por ID",
+            description = "Retorna os dados de uma criança específica pelo seu ID")
+    @ApiResponse(responseCode = "200", description = "Criança encontrada com sucesso")
+    public ResponseEntity<CriancaResponseDTO> buscarCriancaPorId(
+            @PathVariable Long id,
+            @RequestHeader(name = "Authorization", required = false) String token) {
+        return ResponseEntity.ok(criancaService.buscarCriancaPorId(id));
+    }
 }
