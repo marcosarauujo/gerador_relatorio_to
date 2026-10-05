@@ -29,7 +29,7 @@ public class SessaoService {
         String email = jwtUtil.extrairEmailToken(token.substring(7));
         TerapeutaEntity terapeutaEntity = terapeutaService.buscarTerapeutaEmail(email);
 
-        CriancaEntity criancaEntity = criancaService.buscarCriancaPorId(sessaoRequestDTO.getCriancaId());
+        CriancaEntity criancaEntity = criancaService.buscarCriancaEntityPorId(sessaoRequestDTO.getCriancaId());
 
         if (!criancaEntity.getTerapeutaEntity().getId().equals(terapeutaEntity.getId())) {
             throw new AccessDeniedException("Acesso negado");
@@ -45,7 +45,7 @@ public class SessaoService {
         String email = jwtUtil.extrairEmailToken(token.substring(7));
         TerapeutaEntity terapeutaEntity = terapeutaService.buscarTerapeutaEmail(email);
 
-        CriancaEntity criancaEntity = criancaService.buscarCriancaPorId(criancaId);
+        CriancaEntity criancaEntity = criancaService.buscarCriancaEntityPorId(criancaId);
 
         if (!criancaEntity.getTerapeutaEntity().getId().equals(terapeutaEntity.getId())) {
             throw new AccessDeniedException("Acesso negado");
@@ -59,4 +59,6 @@ public class SessaoService {
                 .map(sessaoMapper::paraSessaoResponseDTO)
                 .toList();
     }
+
+
 }

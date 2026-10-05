@@ -2,6 +2,7 @@ package com.marcos.geradorrelatorioto.controller;
 
 import com.marcos.geradorrelatorioto.business.SessaoService;
 import com.marcos.geradorrelatorioto.business.dto.in.SessaoRequestDTO;
+import com.marcos.geradorrelatorioto.business.dto.out.CriancaResponseDTO;
 import com.marcos.geradorrelatorioto.business.dto.out.SessaoResponseDTO;
 import com.marcos.geradorrelatorioto.infrastructure.security.SecurityConfig;
 import io.swagger.v3.oas.annotations.Operation;
@@ -55,4 +56,6 @@ public class SessaoController {
             @RequestHeader(name = "Authorization", required = false) String token) {
         return ResponseEntity.ok(sessaoService.listarSessoesDoMes(criancaId, ano, mes, token));
     }
+
+
 }
