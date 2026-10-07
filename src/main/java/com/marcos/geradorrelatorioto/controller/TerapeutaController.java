@@ -8,6 +8,7 @@ import com.marcos.geradorrelatorioto.infrastructure.entity.TerapeutaEntity;
 import com.marcos.geradorrelatorioto.infrastructure.security.JwtUtil;
 import com.marcos.geradorrelatorioto.infrastructure.security.SecurityConfig;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -50,8 +51,7 @@ public class TerapeutaController {
     @ApiResponse(responseCode = "404", description = "Terapeuta Ocupacional não encontrada")
 
     public ResponseEntity<TerapeutaResponseDTO> buscarTerapeutaEmail(
-
-            @RequestHeader(name = "Authorization", required = false) String token) {
+            @Parameter(hidden = true) @RequestHeader(name = "Authorization", required = false) String token) {
 
         String email = jwtUtil.extrairEmailToken(token.substring(7));
         TerapeutaEntity terapeutaEntity = terapeutaService.buscarTerapeutaEmail(email);
@@ -64,7 +64,7 @@ public class TerapeutaController {
     @ApiResponse(responseCode = "200", description = "Terapeuta encontrado com sucesso")
     public ResponseEntity<TerapeutaResponseDTO> buscarTerapeutaPorId(
             @PathVariable Long id,
-            @RequestHeader(name = "Authorization", required = false) String token) {
+            @Parameter(hidden = true) @RequestHeader(name = "Authorization", required = false) String token) {
 
         return ResponseEntity.ok(terapeutaService.buscarTerapeutaPorId(id));
     }

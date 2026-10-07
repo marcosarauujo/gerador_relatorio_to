@@ -6,6 +6,7 @@ import com.marcos.geradorrelatorioto.business.dto.out.CriancaResponseDTO;
 import com.marcos.geradorrelatorioto.business.dto.out.SessaoResponseDTO;
 import com.marcos.geradorrelatorioto.infrastructure.security.SecurityConfig;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -36,7 +37,7 @@ public class SessaoController {
 
     public ResponseEntity<SessaoResponseDTO> registrarSessao(
             @Valid @RequestBody SessaoRequestDTO requestDTO,
-            @RequestHeader(name = "Authorization", required = false) String token) {
+            @Parameter(hidden = true) @RequestHeader(name = "Authorization", required = false) String token) {
         return ResponseEntity.status(HttpStatus.CREATED).body(sessaoService.registrarSessao(requestDTO, token));
     }
 
@@ -53,7 +54,7 @@ public class SessaoController {
             @RequestParam Long criancaId,
             @RequestParam int ano,
             @RequestParam int mes,
-            @RequestHeader(name = "Authorization", required = false) String token) {
+            @Parameter(hidden = true) @RequestHeader(name = "Authorization", required = false) String token) {
         return ResponseEntity.ok(sessaoService.listarSessoesDoMes(criancaId, ano, mes, token));
     }
 
