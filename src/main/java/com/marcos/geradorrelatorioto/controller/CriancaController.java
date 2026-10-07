@@ -5,6 +5,7 @@ import com.marcos.geradorrelatorioto.business.dto.in.CriancaRequestDTO;
 import com.marcos.geradorrelatorioto.business.dto.out.CriancaResponseDTO;
 import com.marcos.geradorrelatorioto.infrastructure.security.SecurityConfig;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -33,7 +34,7 @@ public class CriancaController {
 
     public ResponseEntity<CriancaResponseDTO> cadastrarCrianca(
             @Valid @RequestBody CriancaRequestDTO criancaRequestDTO,
-            @RequestHeader(name = "Authorization", required = false) String token) {
+            @Parameter(hidden = true) @RequestHeader(name = "Authorization", required = false) String token) {
         return ResponseEntity.status(HttpStatus.CREATED).body(
                 criancaService.cadastraCrianca(criancaRequestDTO, token)
         );
@@ -45,7 +46,7 @@ public class CriancaController {
     @ApiResponse(responseCode = "200", description = "Lista retornada com sucesso")
 
     public ResponseEntity<List<CriancaResponseDTO>> listarMinhasCriancas(
-            @RequestHeader(name = "Authorization", required = false) String token) {
+            @Parameter(hidden = true) @RequestHeader(name = "Authorization", required = false) String token) {
         return ResponseEntity.ok(criancaService.listarMinhasCriancas(token));
     }
 
@@ -55,7 +56,7 @@ public class CriancaController {
     @ApiResponse(responseCode = "200", description = "Criança encontrada com sucesso")
     public ResponseEntity<CriancaResponseDTO> buscarCriancaPorId(
             @PathVariable Long id,
-            @RequestHeader(name = "Authorization", required = false) String token) {
+            @Parameter(hidden = true) @RequestHeader(name = "Authorization", required = false) String token) {
         return ResponseEntity.ok(criancaService.buscarCriancaPorId(id));
     }
 }
